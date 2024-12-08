@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function AddTodoForm({onAddTodo}) {
+function AddTodoForm({ onAddTodo }) {
   const [todoTitle, setTodoTitle] = useState();
 
   const handleTitleChange = (event) => {
