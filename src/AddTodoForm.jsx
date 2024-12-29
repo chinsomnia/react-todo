@@ -16,13 +16,16 @@ function AddTodoForm({ onAddTodo }) {
     setTodoTitle("");
   };
 
+  const focus = () => inputRef.current.focus();
+
   return (
     <form onSubmit={handleAddTodo}>
       <InputWithLabel
         todoTitle={todoTitle}
         onTitleChange={handleTitleChange}
         label="Title"
-      ></InputWithLabel>
+      />
+      <button onClick={focus}>Add</button>
     </form>
   );
 }
