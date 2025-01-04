@@ -23,8 +23,7 @@ function AddTodoForm({ onAddTodo }) {
       <InputWithLabel
         todoTitle={todoTitle}
         onTitleChange={handleTitleChange}
-        label="Title"
-      />
+      >Title</InputWithLabel>
       <button onClick={focus}>Add</button>
     </form>
   );
