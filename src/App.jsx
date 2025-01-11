@@ -5,14 +5,14 @@ import { useEffect, useState } from "react";
 import TodoListItem from "./TodoListItem";
 
 function App() {
-  const savedTodoList = localStorage.getItem("savedTodoList");
-  const initialList = savedTodoList ? JSON.parse(savedTodoList) : [];
   const [todoList, setTodoList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
+  
   useEffect(() => {
     new Promise((resolve, reject) => {
       setTimeout(() => {
+        const savedTodoList = localStorage.getItem("savedTodoList");
+        const initialList = savedTodoList ? JSON.parse(savedTodoList) : [];
         resolve({
           data: {
             todoList: initialList,
