@@ -8,26 +8,22 @@ function App() {
   const [todoList, setTodoList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchData = async(todo) => {
+  const fetchData = async (todo) => {
     const options = {
-      method: 'GET',
+      method: "GET",
       headers: {
-        Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`
-      }
-    }
+        Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`,
+      },
+    };
 
-    const url = `https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}`
+    const url = `https://api.airtable.com/v0/${
+      import.meta.env.VITE_AIRTABLE_BASE_ID
+    }/${import.meta.env.VITE_TABLE_NAME}`;
 
     try {
-      // const airtableData = {
-      //   fields: {
-      //     title: todo,
-      //   },
-      // };
-  
       const response = await fetch(url, options);
-  
-      if (!response.ok) {      
+
+      if (!response.ok) {
         throw new Error(`Error: ${response.status}`);
       }
 
@@ -37,34 +33,20 @@ function App() {
         const existingTodo = {
           title: todo.fields.title,
           id: todo.id,
-        }
+        };
         return existingTodo;
-      })
+      });
 
-      setTodoList(todos)
-      setIsLoading(false)
+      setTodoList(todos);
+      setIsLoading(false);
     } catch (error) {
       console.log(error.message);
       return null;
     }
-  }
-  
+  };
+
   useEffect(() => {
-    fetchData()
-    // new Promise((resolve, reject) => {
-    //   setTimeout(() => {
-    //     const savedTodoList = localStorage.getItem("savedTodoList");
-    //     const initialList = savedTodoList ? JSON.parse(savedTodoList) : [];
-    //     resolve({
-    //       data: {
-    //         todoList: initialList,
-    //       },
-    //     });
-    //   }, 2000);
-    // }).then((result) => {
-    //   setTodoList(result.data.todoList);
-    //   setIsLoading(false);
-    // });
+    fetchData();
   }, []);
 
   useEffect(() => {
