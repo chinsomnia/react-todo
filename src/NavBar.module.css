@@ -1,0 +1,27 @@
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+a {
+    color: #575757;
+    text-decoration: none;
+    font-weight: 300;
+}
+
+nav {
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    z-index: 999; 
+    margin-top: 30px;
+}
+
+img {
+    max-height: 1rem;
+    margin-bottom: 0;
+}
+
