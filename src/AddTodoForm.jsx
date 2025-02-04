@@ -23,7 +23,9 @@ function AddTodoForm({ onAddTodo }) {
       <InputWithLabel todoTitle={todoTitle} onTitleChange={handleTitleChange}>
         Goal
       </InputWithLabel>
-      <button className="add-button" onClick={focus}>Add</button>
+      <button className="add-button" onClick={focus}>
+        Add
+      </button>
     </form>
   );
 }
