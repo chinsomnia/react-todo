@@ -12,7 +12,7 @@ function TodoList({ todoList, onRemoveTodo }) {
 }
 
 TodoList.proptypes = {
-  todoList: PropTypes,
+  todoList: PropTypes.array,
   onRemoveTodo: PropTypes.func
 }
 
