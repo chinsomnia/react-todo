@@ -1,9 +1,11 @@
 import "./App.css";
-import TodoList from "./TodoList";
-import AddTodoForm from "./AddTodoForm";
-import NavBar from "./NavBar"
+import TodoList from "./components/TodoList";
+import AddTodoForm from "./components/AddTodoForm";
+import NavBar from "./NavBar";
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import About from "./About";
+import Contact from "./Contact";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
@@ -67,7 +69,7 @@ function App() {
 
   return (
     <BrowserRouter>
-    <NavBar />
+      <NavBar />
       <Routes>
         <Route
           path="/"
@@ -84,63 +86,8 @@ function App() {
             </>
           }
         />
-        <Route
-          path="/about"
-          element={
-            <>
-              <h1>About</h1>
-              <h5>
-                Your go-to resource for creating and maintaining a personalized
-                self-care routine.
-              </h5>
-              <h5>What you'll find here:</h5>
-              <p>
-                Tool to create your own self-care list: Easily organize your
-                ideas and track your progress.
-              </p>
-              <h5>Benefits:</h5>
-
-              <li>
-                Increased awareness: By consciously creating a list, you become
-                more mindful of your self-care needs.
-              </li>
-              <li>
-                Improved focus: A list helps you prioritize and stay on track
-                with your self-care goals.{" "}
-              </li>
-              <li>
-                Reduced stress: Engaging in regular self-care activities can
-                significantly reduce stress levels.
-              </li>
-              <li>
-                Enhanced well-being: Prioritizing self-care contributes to
-                improved physical and mental health.{" "}
-              </li>
-              <li>
-                Increased self-compassion: A self-care list encourages you to be
-                kind and compassionate towards yourself.
-              </li>
-              <p>
-                A well-crafted self-care list can be a powerful tool for
-                cultivating a happier and healthier you.{" "}
-              </p>
-            </>
-          }
-        />
-        <Route
-          path="/contact"
-          element={
-            <>
-              <h1>Get in Touch</h1>
-              <p>
-                I'd love to hear from you! Whether you have questions, feedback,
-                or simply want to share your self-care journey, please don't
-                hesitate to
-              </p>
-              <a href="https://github.com/chinsomnia/">Contact Me</a>
-            </>
-          }
-        />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
     </BrowserRouter>
   );
