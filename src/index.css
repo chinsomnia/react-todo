@@ -37,6 +37,12 @@ a:hover {
   flex-direction: column; 
 }
 
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 body {
   height: 100%; 
   margin: 0; 
@@ -95,6 +101,18 @@ button:focus-visible {
 
 li {
   list-style-type: none;
+}
+
+.smallButton {
+  padding: 0.3em 0.6em;
+  font-size: 0.8em;
+  font-weight: 500;
+  border-radius: 5px;
+  background-color: white;
+  border: #a97a6d 1px solid;
+  color: #a97a6d;
+  cursor: pointer;
+  transition: background-color 0.25s;
 }
 
 @media (prefers-color-scheme: light) {
