@@ -103,8 +103,8 @@ li {
   list-style-type: none;
 }
 
-.smallButton {
-  padding: 0.3em 0.6em;
+.dropdown {
+  padding: 0.3em 0.3em;
   font-size: 0.8em;
   font-weight: 500;
   border-radius: 5px;
@@ -113,6 +113,7 @@ li {
   color: #a97a6d;
   cursor: pointer;
   transition: background-color 0.25s;
+  margin-left: 12px;
 }
 
 @media (prefers-color-scheme: light) {

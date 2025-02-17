@@ -42,29 +42,7 @@ function App() {
         };
         return existingTodo;
       });
-      
-      if (isAscending) {
-        todos.sort((a, b) => {
-          if (a.title < b.title) {
-            return -1;
-          }
-          if (a.title == b.title) {
-            return 0;
-          }
-          return 1;
-        });
-      } else {
-        todos.sort((b, a) => {
-          if (a.title < b.title) {
-            return -1;
-          }
-          if (a.title == b.title) {
-            return 0;
-          }
-          return 1;
-        });
-      }
-      setIsAscending(!isAscending);
+
       setTodoList(todos);
       setIsLoading(false);
     } catch (error) {
@@ -76,6 +54,22 @@ function App() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const sortTodo = (todos) => {
+    const sortedTodos = [...todos].sort((a, b) => {
+      if (isAscending) {
+        return a.title.localeCompare(b.title);
+      } else {
+        return b.title.localeCompare(a.title);
+      }
+    });
+
+    setTodoList(sortedTodos);
+  };
+
+  useEffect(() => {
+    sortTodo(todoList);
+  }, [isAscending]);
 
   const addTodo = async (newTodo) => {
     const options = {
@@ -107,9 +101,30 @@ function App() {
     }
   };
 
-  const removeTodo = (id) => {
-    const updatedList = todoList.filter((todo) => todo.id !== id);
-    setTodoList(updatedList);
+  const removeTodo = async(id) => {
+    const options = {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`,
+      },
+    };
+
+    const url = `https://api.airtable.com/v0/${
+      import.meta.env.VITE_AIRTABLE_BASE_ID
+    }/${import.meta.env.VITE_TABLE_NAME}/${id}`;
+
+    try {
+      const response = await fetch(url, options);
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
+      
+      const updatedList = todoList.filter((todo) => todo.id !== id);
+      setTodoList(updatedList);
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
@@ -125,16 +140,21 @@ function App() {
               <AddTodoForm onAddTodo={addTodo} />
               <div className="flex">
                 <p>Sort:</p>
-                <button
-                  className="smallButton"
-                  onClick={() => {
-                    isAscending ? setIsAscending(false) : setIsAscending(true);
-                    fetchData()
-                    setIsLoading(true);
+                <select
+                  className="dropdown"
+                  onChange={(e) => {
+                    if (e.target.value === "asc") {
+                      setIsAscending(true);
+                    }
+                    if (e.target.value === "desc") {
+                      setIsAscending(false);
+                    }
                   }}
                 >
-                  {isAscending ? "a-z" : "z-a"}
-                </button>
+                  <option>select</option>
+                  <option value="asc">A-Z</option>
+                  <option value="desc">Z-A</option>
+                </select>
               </div>
               {isLoading ? (
                 <p>Loading...</p>
