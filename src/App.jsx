@@ -119,8 +119,8 @@ function App() {
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);
       }
-      
-      const updatedList = todoList.filter((todo) => todo.id !== id);
+      const data = await response.json();
+      const updatedList = todoList.filter((todo) => todo.id !== data.id);
       setTodoList(updatedList);
     } catch (error) {
       console.log(error.message);
