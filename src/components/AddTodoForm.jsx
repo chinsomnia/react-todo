@@ -33,6 +33,6 @@ function AddTodoForm({ onAddTodo }) {
 
 AddTodoForm.propTypes = {
   onAddTodo: PropTypes.func,
-}
+};
 
 export default AddTodoForm;

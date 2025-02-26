@@ -11,6 +11,8 @@ function App() {
   const [todoList, setTodoList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isAscending, setIsAscending] = useState(true);
+  const today = new Date();
+  const formattedDate = today.toISOString().split("T")[0];
 
   const fetchData = async (todo) => {
     const options = {
@@ -39,6 +41,7 @@ function App() {
         const existingTodo = {
           title: todo.fields.title,
           id: todo.id,
+          completedAt: todo.fields.completedAt,
         };
         return existingTodo;
       });
@@ -95,13 +98,13 @@ function App() {
       }
       const data = await response.json();
       const id = data.id;
-      setTodoList([...todoList, { title: newTodo.title, id }]);
+      setTodoList([...todoList, { title: newTodo.title, id, completedAt }]);
     } catch (error) {
       console.log(error.message);
     }
   };
 
-  const removeTodo = async(id) => {
+  const removeTodo = async (id) => {
     const options = {
       method: "DELETE",
       headers: {
@@ -122,6 +125,34 @@ function App() {
       const data = await response.json();
       const updatedList = todoList.filter((todo) => todo.id !== data.id);
       setTodoList(updatedList);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const markComplete = async (id, isCompleted) => {
+    const options = {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        fields: { completedAt: isCompleted ? formattedDate : null },
+      }),
+    };
+
+    const url = `https://api.airtable.com/v0/${
+      import.meta.env.VITE_AIRTABLE_BASE_ID
+    }/${import.meta.env.VITE_TABLE_NAME}/${id}`;
+
+    try {
+      const response = await fetch(url, options);
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
+      const data = await response.json();
     } catch (error) {
       console.log(error.message);
     }
@@ -159,7 +190,11 @@ function App() {
               {isLoading ? (
                 <p>Loading...</p>
               ) : (
-                <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
+                <TodoList
+                  todoList={todoList}
+                  onRemoveTodo={removeTodo}
+                  onCheckInput={markComplete}
+                />
               )}
             </div>
           }

@@ -2,7 +2,7 @@ import TodoListItem from "./TodoListItem";
 import PropTypes from "prop-types";
 import style from "./TodoList.module.css";
 
-function TodoList({ todoList, onRemoveTodo }) {
+function TodoList({ todoList, onRemoveTodo, onCheckInput }) {
   return (
     <div className={style.listContainer}>
       <div className={style.listContent}>
@@ -12,6 +12,7 @@ function TodoList({ todoList, onRemoveTodo }) {
               key={todo.id}
               item={todo}
               onRemoveTodo={onRemoveTodo}
+              onCheckInput={onCheckInput}
             />
           ))}
         </ul>
@@ -23,6 +24,7 @@ function TodoList({ todoList, onRemoveTodo }) {
 TodoList.proptypes = {
   todoList: PropTypes.array,
   onRemoveTodo: PropTypes.func,
+  onCheckInput: PropTypes.func,
 };
 
 export default TodoList;
