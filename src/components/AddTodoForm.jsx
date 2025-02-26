@@ -3,7 +3,7 @@ import InputWithLabel from "./InputWithLabel";
 import PropTypes from "prop-types";
 
 function AddTodoForm({ onAddTodo }) {
-  const [todoTitle, setTodoTitle] = useState();
+  const [todoTitle, setTodoTitle] = useState("");
 
   const handleTitleChange = (event) => {
     const newTodoTitle = event.target.value;
@@ -24,7 +24,7 @@ function AddTodoForm({ onAddTodo }) {
       <InputWithLabel todoTitle={todoTitle} onTitleChange={handleTitleChange}>
         Goal
       </InputWithLabel>
-      <button className="add-button" onClick={focus}>
+      <button className="add-button" onClick={focus} type="submit">
         Add
       </button>
     </form>
@@ -33,6 +33,6 @@ function AddTodoForm({ onAddTodo }) {
 
 AddTodoForm.propTypes = {
   onAddTodo: PropTypes.func,
-}
+};
 
 export default AddTodoForm;
