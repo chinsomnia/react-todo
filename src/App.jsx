@@ -98,7 +98,7 @@ function App() {
       }
       const data = await response.json();
       const id = data.id;
-      setTodoList([...todoList, { title: newTodo.title, id, completedAt }]);
+      setTodoList([...todoList, { title: newTodo.title, id }]);
     } catch (error) {
       console.log(error.message);
     }
