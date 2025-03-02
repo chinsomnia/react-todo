@@ -1,3 +1,7 @@
 .ListItem {
-    color: #575757;
+  color: #575757;
+}
+
+.checkInput {
+  margin-right: 10px;
 }
